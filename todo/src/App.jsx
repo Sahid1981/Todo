@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-function App() 
-  const [task, setState] = useState('')
+function App() { 
+  const [task, setTask] = useState('')
   const [tasks, setTasks] = useState([])
   const addTask = (event) => {
     event.preventDefault()
@@ -10,8 +10,8 @@ function App()
     setTasks(currentTasks => [...currentTasks, description])
     setTask('')
   }
-  const deleyteTask = (delete) => {
-    setTasks(currentTasks => currentTasks.filter(item => item !== delete))
+  const deleyteTask = (deleted) => {
+    setTasks(currentTasks => currentTasks.filter(item => item !== deleted))
   }
   return (
     <div id="container">
@@ -25,7 +25,14 @@ function App()
       <ul>
         {
           tasks.map(item => (
-            <li key={item}>{item}</li>
+            <li>
+              {item}
+              <button
+                className= 'delete-button'
+                onClick={() => deleyteTask(item)}>
+                Delete
+              </button>
+            </li>
           ))
         }
       </ul>
