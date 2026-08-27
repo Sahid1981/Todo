@@ -34,6 +34,22 @@ app.post('/tasks', (reg, res) => {
     }) 
 }) 
 
+app.post('/tasks', (reg, res) => {
+    const pool = openDb()
+    const { id } = reg.params
+    console.log('Deleting task whit id: ${id}')
+    pool.query('DELETE FROM task WHERE id = $1',
+        [id], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: 'Internal server error' })
+        }
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'Task not found' })
+        }
+        res.status(200).json({id: id})
+    })
+})
+
 app.get('/tasks', (reg, res) => {
     const pool = openDb()
     pool.query('SELECT * FROM task', (err, result) => {
