@@ -18,9 +18,9 @@ const openDb = () => {
     })
     return pool
 }
-app.post('/tasks', (reg, res) => {
+app.post('/tasks', (req, res) => {
     const pool = openDb()
-    const { task } = reg.body
+    const { task } = req.body
     if (!task) {
         return res.status(400).json({error: 'Tastk is reguired'})
     }
@@ -34,9 +34,9 @@ app.post('/tasks', (reg, res) => {
     }) 
 }) 
 
-app.post('/tasks', (reg, res) => {
+app.delete('/tasks/:id', (req, res) => {
     const pool = openDb()
-    const { id } = reg.params
+    const { id } = req.params
     console.log('Deleting task whit id: ${id}')
     pool.query('DELETE FROM task WHERE id = $1',
         [id], (err, result) => {
@@ -50,7 +50,7 @@ app.post('/tasks', (reg, res) => {
     })
 })
 
-app.get('/tasks', (reg, res) => {
+app.get('/tasks', (req, res) => {
     const pool = openDb()
     pool.query('SELECT * FROM task', (err, result) => {
         if (err) {
