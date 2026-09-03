@@ -4,7 +4,7 @@ import { ApiError } from '../helper/apiError.js'
 const getTasks = async (req, res, next) => {
     try {
         const result = await selectAllTasks()
-        return req.status(200).json(result.rows || [])
+        return res.status(200).json(result.rows || [])
     } catch (error) {
         return next(error)
     }
