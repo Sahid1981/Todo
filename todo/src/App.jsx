@@ -18,7 +18,7 @@ function App() {
         setTasks(response.data)
       })
       .catch(error => {
-        alert(error.response.data ? error.response.data.message : error)
+        alert(error.response ? error.response.data.error.message : error)
       })
   }, []) 
   

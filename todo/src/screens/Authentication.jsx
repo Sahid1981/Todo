@@ -20,7 +20,7 @@ export default function Authentication({ authenticationMode }) {
             navigate(authenticationMode === AuthenticationMode.SignUp ? '/signin' : '/')
         })
         .catch(error => {
-            alert(error)
+            alert(error.response ? error.response.data.error.message : error)
         })
     }
 

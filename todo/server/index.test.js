@@ -78,4 +78,15 @@ describe("Testing user management", () => {
         expect(data).to.include.all.keys(["id", "email", "token"])
         expect(data.email).to.equal(user.email)
     })
+
+    it("should not sign in with wrong password", async () => {
+        const response = await fetch("http://localhost:3001/users/signin", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user: { email: user.email, password: "wrongpassword" } })
+        })
+        const data = await response.json()
+        expect(response.status).to.equal(401)
+        expect(data).to.include.all.keys("error")
+    })
 })
